@@ -79,10 +79,10 @@ void int_list_prepend(int_list* list, int value) {
     }
 }
 
-int int_list_get_item(int_list* list, int index) {
+int_node* int_list_get_item(int_list* list, int index) {
     if (list != NULL) {
         if (list->head == NULL || index < 0 || index >= list->length) {
-            return 0;
+            return NULL;
         } else {
             int_node *current_node;
             if (index < list->length / 2) {
@@ -96,8 +96,8 @@ int int_list_get_item(int_list* list, int index) {
                     current_node = current_node->prev;
                 }
             }
-            return current_node == NULL ? 0 : current_node->value;
+            return current_node;
         }
     }
-    return 0;
+    return NULL;
 }

@@ -10,7 +10,7 @@ int main() {
     int_list* list = int_list_create();
     int_list_append(list, 123);
     int_list_prepend(list, 987);
-    printf("%d", int_list_get_item(list, 1));
+    printf("%d", int_list_get_item(list, 1)->value);
     int_list_destroy(list);
     return 0;
 }

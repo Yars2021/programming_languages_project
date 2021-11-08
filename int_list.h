@@ -23,7 +23,7 @@ void int_list_destroy(int_list*);
 
 void int_list_append(int_list*, int);
 void int_list_prepend(int_list*, int);
-int int_list_get_item(int_list*, int);
+int_node* int_list_get_item(int_list*, int);
 int int_list_push_after(int_list*, int, int);
 int int_list_push_before(int_list*, int, int);
 int int_list_set_value(int_list*, int, int);
