@@ -3,4 +3,4 @@ project(PLProject C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(PLProject main.c st_string.c st_string.h int_list.c int_list.h)
+add_executable(PLProject main.c st_string.c st_string.h list.h)
