@@ -25,6 +25,7 @@ int main() {
     int_list_list_append(list_of_lists, *list2);
 
     printf("%d\n\n", int_list_get_item(&int_list_list_get_item(list_of_lists, 1)->value, 0)->value);
+    printf("%d\n\n", list_get_item(int, &list_get_item(int_list, list_of_lists, 1)->value, 0)->value);
 
     int_list_destroy(list1);
     list_destroy(int, list2);
