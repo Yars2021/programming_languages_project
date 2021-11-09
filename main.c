@@ -15,10 +15,10 @@ int main() {
     int_list_prepend(list1, 4343);
     printf("%d\n\n", int_list_get_item(list1, 0)->value);
 
-    int_list* list2 = int_list_create();
-    int_list_append(list2, 100000);
-    int_list_append(list2, -100000);
-    printf("%d\n\n", int_list_get_item(list2, 1)->value);
+    int_list* list2 = list_create(int);
+    list_prepend(int, list2, 100000);
+    list_append(int, list2, -100000);
+    printf("%d\n\n", list_get_item(int, list2, 1)->value);
 
     int_list_list* list_of_lists = int_list_list_create();
     int_list_list_append(list_of_lists, *list1);
@@ -27,7 +27,7 @@ int main() {
     printf("%d\n\n", int_list_get_item(&int_list_list_get_item(list_of_lists, 1)->value, 0)->value);
 
     int_list_destroy(list1);
-    int_list_destroy(list2);
+    list_destroy(int, list2);
     int_list_list_destroy(list_of_lists);
     return 0;
 }

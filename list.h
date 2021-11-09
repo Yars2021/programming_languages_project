@@ -38,8 +38,8 @@
         }                                                                          \
     }
 
-#define node_create(T, V) T##_node_create(T V)
-#define node_destroy(T, N) T##_node_destroy(T##_node* N)
+#define node_create(T, V) T##_node_create(V)
+#define node_destroy(T, N) T##_node_destroy(N)
 
 #define list(T)                                                                    \
     node(T)                                                                        \
@@ -121,10 +121,10 @@
     }
 
 #define list_create(T) T##_list_create()
-#define list_destroy(T, L) T##_list_destroy(T##_list* L)
-#define list_append(T, L, V) T##_list_append(T##_list* L, T V)
-#define list_prepend(T, L, V) T##_list_prepend(T##_list* L, T V)
-#define list_get_item(T, L, I) T##_list_get_item(T##_list* L, T I)
+#define list_destroy(T, L) T##_list_destroy(L)
+#define list_append(T, L, V) T##_list_append(L, V)
+#define list_prepend(T, L, V) T##_list_prepend(L, V)
+#define list_get_item(T, L, I) T##_list_get_item(L, I)
 
 //void list_push_after(list*, int, unsigned int);
 //void list_push_before(list*, int, unsigned int);
