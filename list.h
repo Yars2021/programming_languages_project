@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 
-#define node(T)                                                                    \
+#define define_node(T)                                                             \
     typedef struct T##_node {                                                      \
         T value;                                                                   \
         struct T##_node *next, *prev;                                              \
@@ -41,8 +41,8 @@
 #define node_create(T, V) T##_node_create(V)
 #define node_destroy(T, N) T##_node_destroy(N)
 
-#define list(T)                                                                    \
-    node(T)                                                                        \
+#define define_list(T)                                                             \
+    define_node(T)                                                                 \
     typedef struct {                                                               \
         unsigned int length;                                                       \
         T##_node *head, *tail;                                                     \
@@ -120,6 +120,7 @@
         return NULL;                                                               \
     }
 
+#define list(T) T##_list
 #define list_create(T) T##_list_create()
 #define list_destroy(T, L) T##_list_destroy(L)
 #define list_append(T, L, V) T##_list_append(L, V)
