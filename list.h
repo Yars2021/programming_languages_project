@@ -55,23 +55,9 @@
         return list;                                                               \
     }                                                                              \
                                                                                    \
-    void T##_list_destroy(T##_list* L) {                                           \
-        if (L != NULL) {                                                           \
-            if (L->tail != NULL && L->head != NULL) {                              \
-                while (L->tail != L->head) {                                       \
-                    if (L->head != NULL) {                                         \
-                        L->head = L->head->next;                                   \
-                        T##_node_destroy(L->head->prev);                           \
-                    }                                                              \
-                }                                                                  \
-            }                                                                      \
-            free(L);                                                               \
-        }                                                                          \
-    }                                                                              \
-                                                                                   \
     void T##_list_append(T##_list* L, T V) {                                       \
         if (L != NULL) {                                                           \
-            T##_node* node = T##_node_create(V);                                   \
+            T##_node* node = node_create(T, V);                                    \
             L->length++;                                                           \
             if (L->tail == NULL) {                                                 \
                 L->head = L->tail = node;                                          \
@@ -85,7 +71,7 @@
                                                                                    \
     void T##_list_prepend(T##_list* L, T V) {                                      \
         if (L != NULL) {                                                           \
-            T##_node* node = T##_node_create(V);                                   \
+            T##_node* node = node_create(T, V);                                    \
             L->length++;                                                           \
             if (L->head == NULL) {                                                 \
                 L->head = L->tail = node;                                          \
@@ -118,7 +104,63 @@
             }                                                                      \
         }                                                                          \
         return NULL;                                                               \
-    }
+    }                                                                              \
+                                                                                   \
+    void T##_list_push_after(T##_list* L, T V, unsigned int I) {                   \
+    }                                                                              \
+                                                                                   \
+    void T##_list_push_before(T##_list* L, T V, unsigned int I) {                  \
+    }                                                                              \
+                                                                                   \
+    void T##_list_set_value(T##_list* L, T V, unsigned int I) {                    \
+    }                                                                              \
+                                                                                   \
+    T##_node* T##_list_get_first(T##_list* L) {                                    \
+        return L->head;                                                            \
+    }                                                                              \
+                                                                                   \
+    T##_node* T##_list_get_last(T##_list* L) {                                     \
+        return L->tail;                                                            \
+    }                                                                              \
+                                                                                   \
+    void T##_list_remove_first(T##_list* L) {                                      \
+        if (L != NULL && L->length > 0) {                                          \
+            L->length--;                                                           \
+            if (L->length > 0) {                                                   \
+                L->head = L->head->next;                                           \
+            }                                                                      \
+            node_destroy(T, L->head->prev);                                        \
+        }                                                                          \
+    }                                                                              \
+                                                                                   \
+    void T##_list_remove_last(T##_list* L) {                                       \
+        if (L != NULL && L->length > 0) {                                          \
+            L->length--;                                                           \
+            if (L->length > 0) {                                                   \
+                L->tail = L->tail->prev;                                           \
+            }                                                                      \
+            node_destroy(T, L->tail->next);                                        \
+        }                                                                          \
+    }                                                                              \
+                                                                                   \
+    void T##_list_clear(T##_list* L) {                                             \
+        if (L != NULL) {                                                           \
+            while (L->length > 0) {                                                \
+                list_remove_first(T, L);                                           \
+                list_remove_last(T, L);                                            \
+            }                                                                      \
+        }                                                                          \
+    }                                                                              \
+                                                                                   \
+    void T##_list_remove_index(T##_list* L, unsigned int I) {                      \
+    }                                                                              \
+                                                                                   \
+    void T##_list_destroy(T##_list* L) {                                           \
+        if (L != NULL) {                                                           \
+            list_clear(T, L);                                                      \
+            free(L);                                                               \
+        }                                                                          \
+    }                                                                              \
 
 #define list(T) T##_list
 #define list_create(T) T##_list_create()
@@ -126,14 +168,14 @@
 #define list_append(T, L, V) T##_list_append(L, V)
 #define list_prepend(T, L, V) T##_list_prepend(L, V)
 #define list_get_item(T, L, I) T##_list_get_item(L, I)
-
-//void list_push_after(list*, int, unsigned int);
-//void list_push_before(list*, int, unsigned int);
-//void list_set_value(list*, int, unsigned int);
-//void* list_get_first(list*);
-//void* list_get_last(list*);
-//void list_remove_first(list*);
-//void list_remove_last(list*);
-//void list_remove_index(list*, unsigned int);
+#define list_push_after(T, L, V, I) T##_list_push_after(L, V, I)
+#define list_push_before(T, L, V, I) T##_list_push_before(L, V, I)
+#define list_set_value(T, L, V, I) T##_list_set_value(L, V, I)
+#define list_get_first(T, L) T##_list_get_first(L)
+#define list_get_last(T, L) T##_list_get_last(L)
+#define list_remove_first(T, L) T##_list_remove_first(L)
+#define list_remove_last(T, L) T##_list_remove_first(L)
+#define list_clear(T, L) T##_list_clear(L)
+#define list_remove_index(T, L, I) T##_list_remove_index(L, I)
 
 #endif //PLPROJECT_LIST_H

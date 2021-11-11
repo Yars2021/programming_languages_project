@@ -10,25 +10,28 @@ int main() {
     printf("%s\n\n", string->chars);
     st_destroy(string);
 
-    int_list* list1 = int_list_create();
-    int_list_append(list1, 123);
-    int_list_prepend(list1, 4343);
-    printf("%d\n\n", int_list_get_item(list1, 0)->value);
+    list(int)* list1 = list_create(int);
+    list_append(int, list1, 123);
+    list_prepend(int, list1, -100000);
+    list_append(int, list1, 5555);
+    list_prepend(int, list1, 6666);
 
-    list(int)* list2 = list_create(int);
-    list_prepend(int, list2, 100000);
-    list_append(int, list2, -100000);
-    printf("%d\n\n", list_get_item(int, list2, 1)->value);
+    for (int i = 0; i < list1->length; i++) {
+        printf("%d\n", list_get_item(int, list1, i)->value);
+    }
 
-    int_list_list* list_of_lists = int_list_list_create();
-    int_list_list_append(list_of_lists, *list1);
-    int_list_list_append(list_of_lists, *list2);
+    printf("\n\n");
+    list_remove_first(int, list1);
 
-    printf("%d\n\n", int_list_get_item(&int_list_list_get_item(list_of_lists, 1)->value, 0)->value);
-    printf("%d\n\n", list_get_item(int, &list_get_item(int_list, list_of_lists, 1)->value, 0)->value);
+    for (int i = 0; i < list1->length; i++) {
+        printf("%d\n", list_get_item(int, list1, i)->value);
+    }
 
-    int_list_destroy(list1);
-    list_destroy(int, list2);
-    int_list_list_destroy(list_of_lists);
+    printf("\n\n");
+    list_clear(int, list1);
+
+    printf("%d\n", list1->length);
+
+    list_destroy(int, list1);
     return 0;
 }
